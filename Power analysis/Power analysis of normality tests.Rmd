@@ -1,0 +1,72 @@
+---
+title: "Comparação de testes de normalidade"
+author: "Anaih P. Pereira e Arthur C. M. Rocha"
+date: "29 de setembro de 2017"
+output: pdf_document
+---
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+curve(dnorm(x),from = -3,to=3,ann=F,axes=F)
+abline(v=0,lty=2)
+abline(h=0)
+```
+
+\newpage
+
+```{r, message=FALSE, warning=FALSE, include=FALSE}
+setwd("C:\\Users\\Master\\Documents\\3ano\\2semestre\\nao parametrico")
+dados<-read.csv("bdtrab.csv",sep = ";",dec=",")
+dados2<-read.csv("Dados_Graficos.csv",sep=";",dec = ",")
+library(nortest)
+Peso<-subset(dados$Peso,dados$Peso<110)
+```
+
+
+>##**Função:**
+
+```{r}
+testes<-function(t){
+list(
+shapiro.test(t),
+lillie.test(t),
+ad.test(t),
+cvm.test(t),
+pearson.test(t) )
+}
+```
+
+>##**Testando os dados do banco de dado 1:**
+>
+- ###Para peso 1 e 2:
+```{r}
+testes(dados$Peso)
+testes(Peso)
+```
+>
+- ###Para altura:
+```{r}
+testes(dados$Altura)
+```
+>
+-Para idade:
+```{r}
+testes(dados$Idade)
+```
+
+
+
+>**Testando os dados do banco de dadoss 2:**
+>
+-Para peso:
+```{r}
+testes(dados2$peso)
+```
+-Para altura:
+```{r}
+testes(dados2$altura)
+```
+-Para numero de filhos:
+```{r}
+testes(dados2$Numerofilhos)
+```
+
